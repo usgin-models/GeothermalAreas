@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:aasg="http://stategeothermaldata.org/uri-gin/aasg/xmlschema/geothermalarea/0.5" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:gml="http://www.opengis.net/gml" targetNamespace="http://stategeothermaldata.org/uri-gin/aasg/xmlschema/geothermalarea/0.5" elementFormDefault="qualified">
+	<xs:import namespace="http://www.opengis.net/gml" schemaLocation="http://schemas.opengis.net/gml/3.1.1/base/gml.xsd"/>
+	<xs:annotation>
+		<!-- This XSD document, including XML schema, indicates the content requested for geothermal area polygon data obtained from state geological surveys for the AASG geothermal data project.  Typically information included is temperature, location, geologic setting and notes.  The GeothermalAreaURI for a particular polygon is the link (foreign key) used to associate the feature with additional information and metadata.  Each polygon should have a unique GeothermalAreaURI. -->
+		<!--This XSD document was created on 2012-24-02 by Celia Coleman, AZGS.  This schema is based on the data available in the AASG Web Feature Services created for the geothermal area data set submitted by California. -->
+	</xs:annotation>
+	<xs:element name="GeothermalArea" type="aasg:GeothermalAreaType" substitutionGroup="gml:_Feature"/>
+	<xs:complexType name="GeothermalAreaType">
+		<xs:complexContent>
+			<xs:extension base="gml:AbstractFeatureType">
+				<xs:sequence>
+					<xs:element name="OBJECTID" type="xs:int" minOccurs="0"/>
+					<xs:element name="GeothermalAreaURI">
+						<xs:simpleType>
+							<xs:restriction base="xs:string">
+								<xs:maxLength value="255"/>
+							</xs:restriction>
+						</xs:simpleType>
+					</xs:element>
+					<xs:element name="FieldName" type="xs:string" minOccurs="0"/>
+					<xs:element name="OtherLocationName" type="xs:string" minOccurs="0"/>
+					<xs:element name="Notes" type="xs:string" minOccurs="0"/>
+					<xs:element name="ResourceType" type="xs:string"/>
+					<xs:element name="GeologicSetting" type="xs:string" minOccurs="0"/>
+					<xs:element name="GeothermTempCharacterization" type="xs:string"/>
+					<xs:element name="LandOwner" type="xs:string"/>
+					<xs:element name="County" type="xs:string" minOccurs="0"/>
+					<xs:element name="State" type="xs:string"/>
+					<xs:element name="RelatedResource" type="xs:string" minOccurs="0"/>
+					<xs:element name="Source" type="xs:string"/>
+					<xs:element name="SourceURI" minOccurs="0">
+						<xs:simpleType>
+							<xs:restriction base="xs:string">
+								<xs:maxLength value="255"/>
+							</xs:restriction>
+						</xs:simpleType>
+					</xs:element>
+					<xs:element name="Shape" type="gml:GeometryPropertyType"/>
+					<xs:any processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+</xs:schema>
