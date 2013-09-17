@@ -1,42 +1,195 @@
 <?xml version="1.0" encoding="utf-8"?>
-<xs:schema xmlns:aasg="http://stategeothermaldata.org/uri-gin/aasg/xmlschema/geothermalarea/0.5" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:gml="http://www.opengis.net/gml" targetNamespace="http://stategeothermaldata.org/uri-gin/aasg/xmlschema/geothermalarea/0.5" elementFormDefault="qualified">
+<xs:schema xmlns:aasg="http://stategeothermaldata.org/uri-gin/aasg/xmlschema/geothermalarea/0.7" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:gml="http://www.opengis.net/gml" xmlns:gmlsf="http://www.opengis.net/gmlsf"  targetNamespace="http://stategeothermaldata.org/uri-gin/aasg/xmlschema/geothermalarea/0.7" elementFormDefault="qualified">
 	<xs:import namespace="http://www.opengis.net/gml" schemaLocation="http://schemas.opengis.net/gml/3.1.1/base/gml.xsd"/>
 	<xs:annotation>
 		<!-- This XSD document, including XML schema, indicates the content requested for geothermal area polygon data obtained from state geological surveys for the AASG geothermal data project.  Typically information included is temperature, location, geologic setting and notes.  The GeothermalAreaURI for a particular polygon is the link (foreign key) used to associate the feature with additional information and metadata.  Each polygon should have a unique GeothermalAreaURI. -->
-		<!--This XSD document was created on 2012-24-02 by Celia Coleman, AZGS.  This schema is based on the data available in the AASG Web Feature Services created for the geothermal area data set submitted by California. -->
+		<!--Annotated version 0.7.1. This XSD document was created on 2012-24-02 by Christy Caudill, AZGS.  This schema is based on the data available in the AASG Web Feature Services created for the geothermal area data set submitted by California and harmonized with en.openei.org services. Field Description annotations standardized 2013-08-22 by Esty Pape, AZGS.-->
+		<xs:appinfo source="http://schemas.opengis.net/gml/3.1.1/profiles/gmlsfProfile/1.0.0/gmlsfLevels.xsd">
+		<gmlsf:ComplianceLevel>0</gmlsf:ComplianceLevel>
+			<gmlsf:GMLProfileSchema>
+http://schemas.opengis.net/gml/3.1.1/profiles/gmlsfProfile/1.0.0/gmlsf.xsd </gmlsf:GMLProfileSchema>
+		</xs:appinfo>
 	</xs:annotation>
 	<xs:element name="GeothermalArea" type="aasg:GeothermalAreaType" substitutionGroup="gml:_Feature"/>
 	<xs:complexType name="GeothermalAreaType">
 		<xs:complexContent>
 			<xs:extension base="gml:AbstractFeatureType">
 				<xs:sequence>
-					<xs:element name="OBJECTID" type="xs:int" minOccurs="0"/>
+					<xs:element name="OBJECTID" type="xs:int" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Integer record count, added by ArcGIS servers during service deployment; not required but cannot be removed when deploying from ArcGIS feature class. Not user maintained, so this element appears in XML implementation but not in the Content Model Template.</xs:documentation>
+						</xs:annotation>
+						</xs:element>
 					<xs:element name="GeothermalAreaURI">
+						<xs:annotation>
+							<xs:documentation>Unique identifier that specifies the feature (Geothermal Area). Ideally, the identifier is an http URI that will dereference to a known, useful representation of the feature. This identifier will be used to cross reference the feature to other information related to this feature.</xs:documentation>
+						</xs:annotation>
 						<xs:simpleType>
 							<xs:restriction base="xs:string">
 								<xs:maxLength value="255"/>
 							</xs:restriction>
 						</xs:simpleType>
 					</xs:element>
-					<xs:element name="FieldName" type="xs:string" minOccurs="0"/>
-					<xs:element name="OtherLocationName" type="xs:string" minOccurs="0"/>
-					<xs:element name="Notes" type="xs:string" minOccurs="0"/>
-					<xs:element name="ResourceType" type="xs:string"/>
-					<xs:element name="GeologicSetting" type="xs:string" minOccurs="0"/>
-					<xs:element name="GeothermTempCharacterization" type="xs:string"/>
-					<xs:element name="LandOwner" type="xs:string"/>
-					<xs:element name="County" type="xs:string" minOccurs="0"/>
-					<xs:element name="State" type="xs:string"/>
-					<xs:element name="RelatedResource" type="xs:string" minOccurs="0"/>
-					<xs:element name="Source" type="xs:string"/>
-					<xs:element name="SourceURI" minOccurs="0">
+					<xs:element name="FieldName" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Name of the Geothermal Area. If multiple names are or have been used for the field, separate values with a '|' character.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="OtherLocationName" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Names of geographic features associated with the site that will be useful as search criteria to locate the information for this site. If identifiers from multiple different authorities are available, delimit these identifiers with the pipe character '|'.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Notes" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Any additional information to be provided, including description and other data not captured by the template, details about collection method, contact information for related parties (original collector, project PI), collection platform or Launch, etc.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="ResourceType" type="xs:string">
+						<xs:annotation>
+							<xs:documentation>List the type of resource present in the geothermal field.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="GeologicSetting" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Description of the geologic setting where the resource occurs.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="GeothermTempCharacterization" type="xs:string">
+						<xs:annotation>
+							<xs:documentation>Simple characterization of the geothermal resource. Use terms "High Temperature" or "Low Temperature".</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="LandOwner" type="xs:string">
+						<xs:annotation>
+							<xs:documentation>Companies, individuals, or other entities who own the property. Separate multiple with a pipe '|' character.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="County" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Required. County name. If unknown or not applicable use 'missing'. If offshore, specify 'offshore' in this field.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="State" type="xs:string">
+						<xs:annotation>
+							<xs:documentation>Required. State name without abbreviations. If unknown or not applicable use 'missing'. For offshore locations, specify the governing or nearest state and list the county as 'offshore'.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="LatCentroid" type="xs:double">
+						<xs:annotation>
+							<xs:documentation>Latitude coordinate of Centroid of polygon defining geothermal area; values should be provided with at least 4 significant digits for sufficient precision (7 decimal places is recommended by the USGS (OFR 02-463, p. 6). Use decimal degrees.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="LongCentroid" type="xs:double">
+						<xs:annotation>
+							<xs:documentation>Longitude coordinate of Centroid of polygon defining geothermal area; values should be provided with at least 4 significant digits for sufficient precision (7 decimal places is recommended by the USGS (OFR 02-463, p. 6). Use decimal degrees.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="SRS" type="xs:string">
+						<xs:annotation>
+							<xs:documentation>The spatial reference system. It is recommended that an EPSG code be used to identify the SRS used to specify the location.  If an EPSG code is used, identify it as such with the prefix 'EPSG:' For common EPSG codes, see the Data Valid Terms tab. EPSG:4326 is the identifier for WGS84, and should be the text in this field. EPSG stands for European Petroleum Survey Group. EPSSG codes can be dereferenced by putting the code in this URL (replace 4326) http://spatialreference.org/ref/epsg/4326/.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="LocationUncertaintyStatement" type="xs:string">
+						<xs:annotation>
+							<xs:documentation>Information on how the original location was determined, e.g.: 1:250,000 map, gps unit, Google Earth, PLSS Conversion, Spatial Datum Conversion, e.g., NAD27 to WGS84.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="MeanReservoirTemp" type="xs:double" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Average temperature of the reservoir fluids, in decimal format. Degrees Celsius is preferred and will be reported for consistency in service implementation.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="TemperatureUnits" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Reporting units are either Celsius (preferred) or Fahrenheit. Use same units throughout this document.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="EstimatedReservoirVolume" type="xs:double" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Report in km3 (cubic kilometers).</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="MeanCapacity" type="xs:double" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Report in MW (megawatts) units.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="GrossProductionCapacity" type="xs:double" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Total energy production possible, reported in MW units.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="NetProductionCapacity" type="xs:double" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Total energy production possible less other production variables, reported in MW units.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="NumberOperatingPlants" type="xs:double" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Number of operating plants in the defined geothermal area.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Owners" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Companies, individuals, or other entities who own the property. Separate multiple with a pipe '|' character.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="PowerPurchasers" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>List of those who purchase power from the facilities in the given geothermal area. Separate multiple values with a pipe character '|'.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="NumberProductionWells" type="xs:double" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>The total number of production wells for all facilities within the given geothermal area.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="NumberInjectionWells" type="xs:double" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>The total number of the injection wells for all facilities within the given geothermal area.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="AverageTemperatureGeofluid" type="xs:double" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Average temperature of the fluids in the geothermal field. Use the same units as defined in TemperatureUnits field.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="AverageDepthReservoir" type="xs:double" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>The average depth to the reservoir, given in units of km (kilometers).</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="DevelopmentArea" type="xs:double" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Report in km^2 (square kilometers).</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="RelatedResource" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>This may be one to many http links to resources (logs, pictures or other documents if available online. Should be an http:// address (URL)) related to the observation described in each record. Delimit multiple values with the pipe '|' character.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Source" type="xs:string">
+						<xs:annotation>
+							<xs:documentation>Mandatory. Short text explanation of source of information defining this feature or record; may be author-date type citation, well log, report, data files etc., but should include some indication of how digital data originated. If unpublished data, provide researcher name, date and research institution for proper citation. Separate multiple citations with pipe '|' character.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="MetadataURI" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>URI identifying (and ideally dereferencing to get) a full formal metadata record for the observation report. A time series of observations may all reference the same metadata record that provides contact information and details on procedure, etc.</xs:documentation>
+						</xs:annotation>
 						<xs:simpleType>
 							<xs:restriction base="xs:string">
 								<xs:maxLength value="255"/>
 							</xs:restriction>
 						</xs:simpleType>
 					</xs:element>
-					<xs:element name="Shape" type="gml:GeometryPropertyType"/>
+					<xs:element name="Shape" type="gml:GeometryPropertyType">
+						<xs:annotation>
+							<xs:documentation>Added by GIS for WFS service; this element appears in the xml output, but is generated during service deployment from the latitude and longitude, therefore it doesn't appear in the template.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
 					<xs:any processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
 				</xs:sequence>
 			</xs:extension>
